@@ -1,0 +1,39 @@
+{
+  "app": "npx ts-node bin/temporal-stitch.ts",
+  "watch": {
+    "include": [
+      "**"
+    ],
+    "exclude": [
+      "README.md",
+      "cdk.json",
+      "**/*.d.ts",
+      "**/*.js",
+      "tsconfig.json",
+      "package.json",
+      "package-lock.json",
+      "node_modules",
+      "test"
+    ]
+  },
+  "context": {
+    "@aws-cdk/core:stackRelativeExports": true,
+    "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
+    "@aws-cdk/aws-lambda:advisoryOnlyDefaultOnVpcManagedRules": true,
+    "@aws-cdk/aws-rds:databaseProxyUniqueResourceName": true,
+    "@aws-cdk/aws-codepipeline:crossAccountKeyAliasStackSafeResourceName": true,
+    "@aws-cdk/aws-s3:createDefaultLoggingPolicy": true,
+    "@aws-cdk/aws-sns-subscriptions:restrictSqsDescryption": true,
+    "@aws-cdk/aws-apigateway:disableCloudWatchRole": true,
+    "@aws-cdk/core:enablePartitionLiterals": true,
+    "@aws-cdk/aws-events:eventsTargetQueueSameAccount": true,
+    "@aws-cdk/aws-iam:standardizedServicePrincipals": true,
+    "@aws-cdk/aws-ecs:disableExplicitReceiverServiceAccountsLBC": true,
+    "@aws-cdk/aws-iam:minimizePolicies": true,
+    "@aws-cdk/core:validateSnapshotRemovalPolicy": true,
+    "@aws-cdk/aws-codegurureviewer:repositoryAssociationShareTag": true,
+    "@aws-cdk/aws-secretsmanager:useAttachedSecretResourcePolicyForCloudFormationRole": true,
+    "@aws-cdk/aws-redshift:columnId": true,
+    "@aws-cdk/aws-stepfunctions-tasks:enableStfnApiGatewayEndpointConfiguration": true
+  }
+}
