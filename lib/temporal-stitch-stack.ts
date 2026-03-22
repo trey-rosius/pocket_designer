@@ -16,6 +16,8 @@ export class TemporalStitchStack extends cdk.Stack {
       listProjectsLambda: compute.listProjectsLambda,
       listScreensLambda: compute.listScreensLambda,
       downloadScreenLambda: compute.downloadScreenLambda,
+      editScreenLambda: compute.editScreenLambda,
+      generateVariantLambda: compute.generateVariantLambda,
     });
 
     const worker = new WorkerStack(this, 'Worker');

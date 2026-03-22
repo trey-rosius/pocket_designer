@@ -195,4 +195,37 @@ export class StitchClient {
     const result = await this.callTool("list_screens", { projectId });
     return result.screens || [];
   }
+
+  /**
+   * Edits a screen with a specific prompt.
+   */
+  async editScreen(screenName: string, prompt: string): Promise<any> {
+    console.log(`Editing Stitch screen ${screenName} with prompt: ${prompt}`);
+    const parts = screenName.split('/');
+    const projectId = parts[1];
+    const screenId = parts[3];
+
+    return await this.callTool("edit_screens", {
+      projectId,
+      screenId,
+      prompt,
+    });
+  }
+
+  /**
+   * Generates a variant of a screen.
+   */
+  async generateVariant(screenName: string, prompt?: string, options?: any): Promise<any> {
+    console.log(`Generating variant for Stitch screen ${screenName}${prompt ? ` with prompt: ${prompt}` : ''}`);
+    const parts = screenName.split('/');
+    const projectId = parts[1];
+    const screenId = parts[3];
+
+    return await this.callTool("generate_variants", {
+      projectId,
+      selectedScreenId: screenId,
+      prompt,
+      variantOptions: options,
+    });
+  }
 }

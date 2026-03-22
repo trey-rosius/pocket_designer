@@ -10,6 +10,8 @@ interface ApiStackProps {
   listProjectsLambda: lambda.IFunction;
   listScreensLambda: lambda.IFunction;
   downloadScreenLambda: lambda.IFunction;
+  editScreenLambda: lambda.IFunction;
+  generateVariantLambda: lambda.IFunction;
 }
 
 export class ApiStack extends Construct {
@@ -44,6 +46,12 @@ export class ApiStack extends Construct {
     const singleScreen = screens.addResource('{screenId}');
     const download = singleScreen.addResource('download');
     download.addMethod('GET', new apigateway.LambdaIntegration(props.downloadScreenLambda));
+
+    const edit = singleScreen.addResource('edit');
+    edit.addMethod('POST', new apigateway.LambdaIntegration(props.editScreenLambda));
+
+    const variant = singleScreen.addResource('variant');
+    variant.addMethod('POST', new apigateway.LambdaIntegration(props.generateVariantLambda));
 
     this.apiUrl = api.url;
   }

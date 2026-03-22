@@ -11,6 +11,8 @@ export class ComputeStack extends Construct {
   public readonly listProjectsLambda: lambda.IFunction;
   public readonly listScreensLambda: lambda.IFunction;
   public readonly downloadScreenLambda: lambda.IFunction;
+  public readonly editScreenLambda: lambda.IFunction;
+  public readonly generateVariantLambda: lambda.IFunction;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -80,6 +82,32 @@ export class ComputeStack extends Construct {
 
     this.downloadScreenLambda = new nodejs.NodejsFunction(this, 'DownloadScreenHandler', {
       entry: path.join(__dirname, '../services/lambda/download-screen.ts'),
+      handler: 'handler',
+      environment: {
+        STITCH_API_KEY: process.env.STITCH_API_KEY || '',
+        STITCH_API_URL: process.env.STITCH_API_URL || '',
+      },
+      timeout: cdk.Duration.seconds(30),
+      bundling: {
+        externalModules: ['@aws-sdk/*'],
+      },
+    });
+
+    this.editScreenLambda = new nodejs.NodejsFunction(this, 'EditScreenHandler', {
+      entry: path.join(__dirname, '../services/lambda/edit_screen.ts'),
+      handler: 'handler',
+      environment: {
+        STITCH_API_KEY: process.env.STITCH_API_KEY || '',
+        STITCH_API_URL: process.env.STITCH_API_URL || '',
+      },
+      timeout: cdk.Duration.seconds(30),
+      bundling: {
+        externalModules: ['@aws-sdk/*'],
+      },
+    });
+
+    this.generateVariantLambda = new nodejs.NodejsFunction(this, 'GenerateVariantHandler', {
+      entry: path.join(__dirname, '../services/lambda/generate_variant.ts'),
       handler: 'handler',
       environment: {
         STITCH_API_KEY: process.env.STITCH_API_KEY || '',
